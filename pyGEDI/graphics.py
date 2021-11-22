@@ -2,9 +2,12 @@
 import sys
 
 try:
-	import gdal
+	from osgeo import gdal
 except ImportError:
-	sys.exit("""You need following module: gdal """)
+    try:
+        import gdal
+    except ImportError:
+	    sys.exit("""You need following module: gdal """)
 
 try:
 	import matplotlib.pyplot as plt
