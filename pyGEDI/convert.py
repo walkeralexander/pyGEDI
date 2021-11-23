@@ -3,16 +3,16 @@
 import sys
 import os
 
-try:
-	import subprocess
-except ImportError:
-	sys.exit("""You need following module: subprocess """)
+def make_dir(outdir: str) -> None:
+    """Make the directory and log if exists.
 
-def df2csv(df,filename,outdir):
+    Args:
+        outdir (str): the directory to create.
+    """
     try:
         os.makedirs(outdir)
-    except:
-        print ("Successfully created")        
+    except FileExistsError:
+        logging.info('Directory {outdir} already exists.')
     df.to_csv(outdir+filename+'.csv', index=False, header=True)  
     return 'DataFrame successfully converted.'
 
