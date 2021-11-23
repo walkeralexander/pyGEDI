@@ -1,28 +1,13 @@
-#!/usr/bin/env python
-import sys
+import copy
 
 try:
-	from osgeo import gdal
+    from osgeo import gdal
 except ImportError:
-    try:
-        import gdal
-    except ImportError:
-	    sys.exit("""You need following module: gdal """)
+    import gdal
 
-try:
-	import matplotlib.pyplot as plt
-except ImportError:
-	sys.exit("""You need following module: matplotlib """)
-	
-try:
-	import copy
-except ImportError:
-	sys.exit("""You need following module: copy """)
+import matplotlib.pyplot as plt
+import numpy as np
 
-try:
-	import numpy as np
-except ImportError:
-	sys.exit("""You need following module: numpy """)
 
 
 def histRaster(file_TIFF,bins):
