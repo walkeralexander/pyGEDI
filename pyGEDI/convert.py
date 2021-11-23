@@ -55,17 +55,25 @@ def csv2shp(csv_file: str, filename: str, outdir: str) -> None:
     else:
         raise FileNotFoundError(f'File {csv_file} not found.')
 
-def shp2tiff(shp_file, layername, pixelsize, nodata, ot, filename,outdir):
+
+def shp2tiff(
+    shp_file: str, layername: str, pixelsize: str,
+    nodata: str, ot: str, filename: str, outdir: str
+):
+    make_dir(outdir)
     if os.path.exists(shp_file):
-        try:
-            os.makedirs(outdir)
-        except:
-            print ("Successfully created")   
-        comand=['gdal_rasterize','-tr',pixelsize,pixelsize,'-a_nodata',nodata,'-ot',ot,'-of','GTiff','-co','COMPRESS=LZW','-a',layername,shp_file,outdir+filename+'.tif']
+        comand = [
+            'gdal_rasterize',
+            '-tr', pixelsize, pixelsize,
+            '-a_nodata', nodata,
+            '-ot', ot,
+            '-of', 'GTiff',
+            '-co', 'COMPRESS=LZW',
+            '-a', layername,
+            shp_file,
+            f'{outdir}/{filename}.tif'
+        ]
         subprocess.Popen(comand)
-        return 'File successfully converted.'
-
     else:
-        return 'SHP file does not exist'
-
+        raise FileNotFoundError(f'File {shp_file} not found.')
 
