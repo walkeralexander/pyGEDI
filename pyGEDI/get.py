@@ -1,15 +1,7 @@
-#!/usr/bin/env python
+import ast
+import re
+import h5py
 
-import os, sys, ast, re
-
-try:
-	import requests
-except ImportError:
-	sys.exit("""You need following module: requests """)
-try:
-	import h5py
-except ImportError:
-	sys.exit("""You need following module: h5py """)
 
 def getH5(fileh5):
 	return h5py.File(fileh5, 'r')
