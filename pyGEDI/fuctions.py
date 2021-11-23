@@ -1,12 +1,12 @@
-#!/usr/bin/env python
+import requests
+import logging
+import pandas as pd
+import numpy as np
+import sys
+import os
 
-import os, sys, ast, re
+from pyGEDI.get import getBeam
 
-try:
-	import requests
-except ImportError:
-	sys.exit("""You need following module: requests """)
-try:
 	import h5py
 except ImportError:
 	sys.exit("""You need following module: h5py """)
