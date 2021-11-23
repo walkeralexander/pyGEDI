@@ -17,7 +17,18 @@ def make_dir(outdir: str) -> None:
     df.to_csv(outdir+filename+'.csv', index=False, header=True)  
     return 'DataFrame successfully converted.'
 
-def csv2shp(csv_file,filename,outdir):
+
+def df2csv(df: pd.DataFrame, filename: str, outdir: str) -> None:
+    """Save the dataframe to a file.
+
+    Args:
+        df (pd.DataFrame): the dataframe to save out.
+        filename (str): the filename to save dataframe at.
+        outdir (str): the directory to save the dataframe in.
+    """
+    make_dir(outdir)
+    df.to_csv(f'{outdir}/{filename}.csv', index=False, header=True)
+
     if os.path.exists(csv_file):
         try:
             os.makedirs(outdir)
