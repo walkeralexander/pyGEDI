@@ -14,8 +14,6 @@ def make_dir(outdir: str) -> None:
         os.makedirs(outdir)
     except FileExistsError:
         logging.info('Directory {outdir} already exists.')
-    df.to_csv(outdir+filename+'.csv', index=False, header=True)  
-    return 'DataFrame successfully converted.'
 
 
 def df2csv(df: pd.DataFrame, filename: str, outdir: str) -> None:
@@ -76,4 +74,3 @@ def shp2tiff(
         subprocess.Popen(comand)
     else:
         raise FileNotFoundError(f'File {shp_file} not found.')
-
