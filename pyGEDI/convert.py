@@ -29,17 +29,32 @@ def df2csv(df: pd.DataFrame, filename: str, outdir: str) -> None:
     make_dir(outdir)
     df.to_csv(f'{outdir}/{filename}.csv', index=False, header=True)
 
+
+def csv2shp(csv_file: str, filename: str, outdir: str) -> None:
+    """Convert a csv to a shp file.
+
+    Args:
+        csv_file (str): the path to the csv file to convert.
+        filename (str): the filename to save the converted shp to.
+        outdir (str): the directory to save the shp file in.
+    """
+    make_dir(outdir)
     if os.path.exists(csv_file):
-        try:
-            os.makedirs(outdir)
-        except:
-            print ("Successfully created")   
-        comand= ['ogr2ogr','-oo','X_POSSIBLE_NAMES=lon*','-oo','Y_POSSIBLE_NAMES=lat*','-f','ESRI Shapefile','-wrapdateline','-t_srs','EPSG:4326','-s_srs','EPSG:4326',outdir+filename+'.shp',csv_file]
-        subprocess.Popen(comand) 
-        return 'File successfully converted.'
+        cmd = [
+            'ogr2ogr',
+            '-oo', 'X_POSSIBLE_NAMES=lon*',
+            '-oo', 'Y_POSSIBLE_NAMES=lat*',
+            '-f', 'ESRI Shapefile',
+            '-wrapdateline',
+            '-t_srs', 'EPSG:4326',
+            '-s_srs', 'EPSG:4326',
+            f'{outdir}/{filename}.shp',
+            csv_file
+        ]
+        subprocess.Popen(cmd)
     else:
-        return 'CSV file does not exist'
-    
+        raise FileNotFoundError(f'File {csv_file} not found.')
+
 def shp2tiff(shp_file, layername, pixelsize, nodata, ot, filename,outdir):
     if os.path.exists(shp_file):
         try:
