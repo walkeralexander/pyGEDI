@@ -7,18 +7,18 @@ import os
 
 from pyGEDI.get import getBeam
 
-	import h5py
-except ImportError:
-	sys.exit("""You need following module: h5py """)
 
-try:
-	import pandas as pd
-except ImportError:
-	sys.exit("""You need following module: pandas """)
+def make_dir(outdir: str) -> None:
+    """Make the directory and log if exists.
 
-try:
-	import numpy as np
-except ImportError:
+    Args:
+        outdir (str): the directory to create.
+    """
+    try:
+        os.makedirs(outdir)
+    except FileExistsError:
+        logging.info('Directory {outdir} already exists.')
+
 	sys.exit("""You need following module: numpy """)
 
 
